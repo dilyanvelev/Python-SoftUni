@@ -7,5 +7,5 @@ def get_characters(first_character, second_character):
 
 first_character = input()
 second_character = input()
-result = get_characters(first_character,second_character)
+result = get_characters(first_character, second_character)
 print(' '.join(result))
