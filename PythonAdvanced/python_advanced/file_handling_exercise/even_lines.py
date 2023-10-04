@@ -1,10 +1,11 @@
-symbols = ['-', ',', '.', '!', '?']
+file_path = 'files/text.txt'
+symbols = ["-", ",", ".", "!", "?"]
+new_lines = []
+with open(file_path, 'r') as file:
+    lines = file.readlines()
 
-with open("text.txt", 'r') as even_lines_file:
-    text = even_lines_file.readline()
-
-for row in range(0, len(text), 2):
+for row in range(0, len(lines), 2):
     for symbol in symbols:
-        text[row] = text[row].replace(symbol, '@')
+        lines[row] = lines[row].replace(symbol, '@')
 
-    print(*text[row].split()[::-1], sep=' ')
+    print(*lines[row].split()[::-1])

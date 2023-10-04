@@ -1,0 +1,4 @@
+
+
+class Caretaker(Worker):
+    pass

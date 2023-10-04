@@ -8,14 +8,14 @@ class EmailValidator:
         return len(name) >= self.min_length
 
     def __is_mail_valid(self, mail):
-        return mail in self.mails
+        return mail in self.mail
 
     def __is_domain_valid(self, domain):
         return domain in self.domains
 
-    def validator(self, email):
+    def validate(self, email):
         name, rest = email.split('@')
         mail, domain = rest.split('.')
-
         if self.__is_name_valid(name) and self.__is_mail_valid(mail) and self.__is_domain_valid(domain):
             return True
+        return False

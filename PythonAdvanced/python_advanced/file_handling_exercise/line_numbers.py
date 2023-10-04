@@ -1,8 +1,8 @@
 from string import punctuation
 
-output_file = open("files/output.txt", "a")
+output_file = open('files/output.txt','w')
 
-with open("files/text.txt", "r") as text_file:
+with open('files/text.txt', 'r') as text_file:
     text = text_file.readlines()
 
 for i in range(len(text)):
@@ -17,4 +17,4 @@ for i in range(len(text)):
         elif symbol in punctuation:
             marks += 1
 
-    output_file.write(f"Line {i + 1}: {''.join(row[:-1])} {letters} {marks}")
+    output_file.write(f"Line {i+1}: {''.join(row[:-1])} ({letters}) ({marks})\n")

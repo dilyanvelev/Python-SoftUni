@@ -1,3 +1,10 @@
+from pyfiglet import Figlet
+import speech_recognition as sr
+import time
+
+
+
+
 def check_for_win():
     player_name, player_symbol = players[0]
     size = len(board)
@@ -8,34 +15,37 @@ def check_for_win():
     row_win = any([all(True if pos == player_symbol else False for pos in row) for row in board])
     col_win = any([all(True if board[r][c] == player_symbol else False for r in range(size)) for c in range(size)])
 
-    if any(first_diagonal_win, second_diagonal_win, row_win, col_win):
+    if any([first_diagonal_win, second_diagonal_win, row_win, col_win]):
         print_board()
         print(f"{player_name} won!")
 
         raise SystemExit
 
     players.append(players.pop(0))
-    choose_position()
 
 
 def place_symbol(position):
     row, col = (position - 1) // 3, (position - 1) % 3
-
-    board[row][col] = players[0][1]
-    check_for_win()
-    print_board()
-    choose_position()
+    if board[row][col] == players[0][1] or board[row][col] == players[1][1]:
+        print("This position is not empty, choose another one!")
+        choose_position()
+    else:
+        board[row][col] = players[0][1]
+        check_for_win()
+        print_board()
+        choose_position()
 
 
 def choose_position():
     while True:
-        position = input(f"{players[0][0]} choose a free position [1-9]: ")
+        position = int(input(f"{players[0][0]} choose a free position [1-9]: "))
 
-        if any([True if position in row else False for row in board]):
+        if 1 <= position <= len(board) * len(board):
             break
 
         else:
             print(f"{players[0][0]}, please select valid position!")
+
     place_symbol(int(position))
 
 
@@ -45,13 +55,33 @@ def print_board(begin=False):
         [print(f"| {' | '.join(row)} |") for row in board]
         print(f"{players[0][0]} starts first!")
 
+        for row in range(len(board)):
+            for col in range(len(board)):
+                board[row][col] = ' '
+
     else:
         [print(f"| {' | '.join(row)} |") for row in board]
 
 
 def start():
-    player_one_name = input("Player one name: ")
-    player_two_name = input("Player two name: ")
+    figlet = Figlet(font='big')
+    print(figlet.renderText("Tic-Tac-Toe"))
+    timer_duration = 4
+    # opening the microphone
+    with sr.Microphone() as source:
+        r = sr.Recognizer()
+
+        print(f"Player one, you have {timer_duration} seconds to say your name:")
+        audio_data = r.record(source, duration=timer_duration)
+        print("Time's up!")
+        player_one_name = r.recognize_google(audio_data)
+        print(f"Hello, {player_one_name}!")
+
+        print(f"Player two, you have {timer_duration} seconds to say your name: ")
+        audio_data = r.record(source, duration=timer_duration)
+        print("Time's up!")
+        player_two_name = r.recognize_google(audio_data)
+        print(f"Hello, {player_two_name}!")
 
     while True:
         player_one_symbol = input(f"{player_one_name} would you like to play with 'X' or 'O'?").upper()
@@ -67,9 +97,12 @@ def start():
     players.append([player_two_name, player_two_symbol])
 
     print_board(begin=True)
+    choose_position()
+
 
 
 players = []
 board = [[str(i), str(i + 1), str(i + 2)] for i in range(1, 10, 3)]
 
 start()
+

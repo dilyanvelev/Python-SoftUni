@@ -1,6 +1,6 @@
-from python_oop.inheritance_exercise.zoo.project.animal import Animal
+from project.animal import Animal
 
 
 class Reptile(Animal):
-
-    def __init__(self):
+    def __init__(self, name):
+        super().__init__(name)

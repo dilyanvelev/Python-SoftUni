@@ -55,7 +55,7 @@ for _ in range(int(input())):
     command_info = input().split()
 
     if command_info[0] == 'move':
-        my_position = move(command_info[1], command_info[2])
+        my_position = move(command_info[1], int(command_info[2]))
 
     elif command_info[0] == 'shoot':
         target_down_pos = shoot(command_info[1])

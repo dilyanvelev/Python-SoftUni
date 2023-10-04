@@ -1,31 +1,34 @@
-import os
+from os import remove
 
 while True:
-    info = input().split('-')
+    command = input()
+    if command == "End":
+        break
 
-    if info[0] == "Create":
-        file = open(f"files/{info[1]}", "w")
-        file.close()
+    command = command.split('-')
 
-    elif info[0] == "Add":
-        with open(f"files/{info[1]}", "a") as file:
-            file.write(f"{info[2]}\n")
+    if command[0] == "Create":
+        with open(f'files/{command[1]}', 'w') as file:
+            file.write('')
 
-    elif info[0] == "Replace":
+    elif command[0] == "Add":
+        with open(f'files/{command[1]}', 'a') as file:
+            file.write(f"{command[2]}\n")
+
+    elif command[0] == "Replace":
         try:
-            with open(f"files/{info[1]}", "r+") as file:
+            with open(f'files/{command[1]}', 'r+') as file:
                 text = file.readlines()
 
                 for i in range(len(text)):
-                    text[i] = text[i].replace(info[2], info[3])
+                    text[i] = text[i].replace(command[2], command[3])
 
-                file.write("".jointext)
+                file.write(''.join(text))
         except FileNotFoundError:
             print("An error occurred")
-    elif info[0] == "Delete":
+
+    elif command[0] == "Delete":
         try:
-            os.remove(f"files/{info[1]}")
+            remove(f"files/{command[1]}")
         except FileNotFoundError:
             print("An error occurred")
-    else:
-        break

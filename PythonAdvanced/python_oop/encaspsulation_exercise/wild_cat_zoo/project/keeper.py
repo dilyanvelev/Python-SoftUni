@@ -1,0 +1,4 @@
+
+
+class Keeper(Worker):
+    pass
