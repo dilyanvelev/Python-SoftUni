@@ -1,2 +1,2 @@
 # Python-SoftUni
-Exercises, tasks and exams from SoftUni.
+Exercises and tasks from SoftUni.
