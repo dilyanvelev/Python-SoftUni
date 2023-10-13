@@ -28,3 +28,12 @@ class Student:
             self.courses.pop(course_name)
             return "Course has been removed"
         raise Exception("Cannot remove course. Course not found.")
+
+
+# student = Student("Student")
+#student1 = Student("Student", {'course': []})
+student2 = Student('Student')
+# student.enroll('course', 'X', "D")
+#student1.enroll('course', ['X', 'C'])
+student2.enroll('course1', ['X'])
+
