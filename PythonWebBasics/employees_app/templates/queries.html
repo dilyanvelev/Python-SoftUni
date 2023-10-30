@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Queries</title>
+</head>
+<body>
+<h1>List of departments</h1>
+<a href='templates'>Templates</a>
+<ul>
+    {% for department in departments %}
+        <li>
+            {{ department.name }}
+            <ul>
+                {% for employee in department.employee_set.all %}
+                    {{ employee.first_name }}
+                {% endfor %}
+            </ul>
+        </li>
+    {% endfor %}
+    <hr>
+    {% for employee in employees %}
+        <li>
+            {{ employee.first_name }} ({{ employee.department.name }})
+        </li>
+    {% endfor %}
+</ul>
+</body>
+</html>

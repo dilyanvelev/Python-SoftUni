@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>First Page</title>
+</head>
+<body>
+<h1>{{ title }}</h1>
+<ul>
+    {% for name in names %}
+        <li>
+            {{ name.name }}
+        </li>
+    {% endfor %}
+
+</ul>
+</body>
+</html>

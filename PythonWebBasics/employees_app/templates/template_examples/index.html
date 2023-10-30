@@ -1,0 +1,47 @@
+{% extends 'index.html' %}
+
+{% load string_filters %}
+{% load departments_tag %}
+{% block content %}
+<h1>{{ title|upper }}</h1>
+<hr>
+<h1>{{ employees|join:', ' }}</h1>
+<hr>
+<h1>{{ departments|join:', ' }}</h1>
+<hr>
+{% if number_1 < 200 %}
+    {{ number_1 }} is less than 200
+{% elif number_1 == 200 %}
+    {{ number_1 }} is 200
+{% else %}
+    {{ number_1 }} is greater than 200
+{% endif %}
+<hr>
+{% if number_2 < 200 %}
+    {{ number_2 }} is less than 200
+{% elif number_2 == 200 %}
+    {{ number_2 }} is 200
+{% else %}
+    {{ number_2 }} is greater than 200
+{% endif %}
+<hr>
+{% if number_3 < 200 %}
+    {{ number_3 }} is less than 200
+{% elif number_3 == 200 %}
+    {{ number_3 }} is 200
+{% else %}
+    {{ number_3 }} is greater than 200
+{% endif %}
+<hr>
+{% for number in numbers %}
+    {{ number }}
+{% endfor %}
+<hr>
+<p>{{ caps|capitalize }}</p>
+<hr>
+<p>{% departments_list %}</p>
+<p>{% departments_list %}</p>
+<p>{% departments_list %}</p>
+<p>{% departments_list %}</p>
+<p>{% departments_list %}</p>
+{% endblock %}

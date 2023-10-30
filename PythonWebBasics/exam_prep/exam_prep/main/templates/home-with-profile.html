@@ -1,0 +1,84 @@
+{#<html lang="en">#}
+{#<head>#}
+{#    <meta charset="UTF-8">#}
+{#    <meta name="viewport" content="width=device-width, initial-scale=1.0">#}
+{#    <link rel="stylesheet" type="text/css" href="/static/css/style.css">#}
+{#    <title>Expenses Tracker</title>#}
+{#</head>#}
+{##}
+{#<body>#}
+{##}
+{#<!-- Navigation Bar -->#}
+{#<nav>#}
+{#    <ul>#}
+{#        <li class="img"><img src="/static/images/dollar.png" alt="dollar"></li>#}
+{#        <li><a href="#">Expenses Tracker</a></li>#}
+{#        <li class="right"><a href="#">Profile</a></li>#}
+{#    </ul>#}
+{#</nav>#}
+{#<!-- End Navigation Bar -->#}
+{##}
+{#<div class="body">#}
+{#    <!-- Summary -->#}
+{% extends 'base.html' %}
+{% block page_content %}
+    {% if expenses %}
+        <div>
+            <h1>Summary</h1>
+            <ul class="expenses-list">
+                <!-- User Budget -->
+                <li class="blue">{{ profile.budget|floatformat:2 }}$</li>
+                {% for expense in expenses %}
+                    <li class="red"> - {{ expense.price|floatformat:2 }}$</li>
+                {% endfor %}
+                <li class="green">= {{ budget_left|floatformat:2 }}$ left</li>
+            </ul>
+        </div>
+        <!-- End Summary -->
+    {% endif %}
+    <!-- Headline My Expenses -->
+    <h1>My Expenses</h1>
+    <!-- Add Expense Button -->
+    <a class="button add" href="{% url 'expense create' %}">Add Expense</a>
+
+    <div class="expenses-container">
+        {% for expense in expenses %}
+
+            <!-- First Expense Container -->
+            <div class="expense-container">
+                <!-- Expense Title -->
+                <h2>{{ expense.title }}</h2>
+                <!-- Expense Image -->
+                <img src="{{ expense.expense_image }}"
+                     alt="{{ expense.description }}">
+                {% if expense.description %}
+                    <!-- Expense Description -->
+                    <p>{{ expense.description }}</p>
+                {% endif %}
+                <div class="expense-detail">
+                    <div>
+                        <!-- Expense Price -->
+                        <p>Price: {{ expense.price|floatformat:2 }}$</p>
+                    </div>
+                    <div class="right">
+                        <!-- Edit Expense Button -->
+                        <a class="button edit" href="{% url 'expense edit' expense.pk %}">Edit</a>
+                        <!-- Delete Expense Button -->
+                        <a class="button delete" href="{% url 'expense delete' expense.pk %}">Delete</a>
+                    </div>
+                </div>
+            </div>
+            <!-- End First Expense Container -->
+        {% endfor %}
+
+
+    </div>
+{% endblock %}
+{#</div>#}
+{##}
+{#<footer>#}
+{#    <div>Python Web Basics Exam Preparation @SoftUni</div>#}
+{#</footer>#}
+{##}
+{#</body>#}
+{#</html>#}
